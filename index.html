@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rendezési Algoritmusok Bemutatása</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Rendezési Algoritmusok és Véletlenszám Generálás</h1>
+            <p>Bemutatjuk a Python nyelvű programot, amely véletlen számokat és szövegeket generál, majd rendezési algoritmusokat alkalmaz.</p>
+        </div>
+    </header>
+
+    <section id="algorithm-description" class="container">
+        <h2>Algoritmus Leírása</h2>
+        <p>Az alábbiakban bemutatjuk a buborékrendezést és a beszúrásos rendezést. Ezek a módszerek egyszerűek, de különböző hatékonysággal rendelkeznek.</p>
+        <ul>
+            <li><strong>Buborékrendezés:</strong> Az elemeket párosával hasonlítja össze, és felcseréli őket, ha szükséges.</li>
+            <li><strong>Beszúrásos rendezés:</strong> Az elemeket fokozatosan rendezi egy már rendezett részen belül.</li>
+        </ul>
+        <h2>Funkciók Leírása:</h2> 
+            <li><strong>veletlen_szamok():</strong> Ez a funkció véletlen számokat generál a felhasználó által megadott határok között. A generált számokat a ki.txt fájlba írja. </li>
+            <li><strong>veletlen_szovegek():</strong> Ez a funkció véletlen szavakat generál az angol ábécé betűiből, és a megadott darabszámú szót a fájlba menti.  </li>
+            <li><strong>ellenoriz_szamokat():</strong> Ez a funkció ellenőrzi, hogy a ki.txt fájlban lévő számok megfelelnek-e a megadott határoknak. </li>
+            <li><strong>ellenoriz_szovegeket():</strong> Ellenőrzi, hogy a ki.txt fájlban lévő szövegek hossza és karakterei megfelelnek-e a megadott kritériumoknak. </li>
+
+            <h2>Hatékonyság és Tárigény:</h2> 
+
+            <ol> <li><strong> Buborékrendezés</strong> </li></ol>
+            <li><strong>Időbeli bonyolultság: </strong> A legrosszabb és az átlagos esetben a végrehajtási idő a lista hosszának négyzetével arányos. Ha a lista már rendezett, a legjobb esetben a végrehajtási idő lineáris. </li>
+            <li><strong>Működés: </strong> Mivel az algoritmus többször is átfut a listán, nem hatékony nagy adathalmazok esetén. </li>
+            <li><strong>Tárigény:</strong> Az algoritmus helyben működik, és nem igényel extra tárolást a rendezéshez. Csak néhány segédváltozóra van szükség az elemek cseréjéhez.</li> 
+
+
+             <ol start="2"> <li><strong>Beszúrásos rendezés</strong> </li></ol>
+                <li><strong>Időbeli bonyolultság: </strong> A legrosszabb és az átlagos esetben a végrehajtási idő a lista hosszának négyzetével arányos. Ha a lista már rendezett, a legjobb esetben a végrehajtási idő lineáris. </li>
+                <li><strong>Működés:</strong>Hatékonyabb, mint a buborékrendezés, különösen kis vagy félig rendezett listák esetén. </li>
+                <li><strong>Tárigény: </strong> A beszúrásos rendezés is helyben működik, és nem igényel extra tárolást az adatok rendezéséhez. A rendezés során csupán néhány segédváltozóra van szükség. </li>
+
+
+        </section>
+
+
+    <section id="code" class="container">
+        <h2>Buborékrendezés Szemléltetése</h2>
+        <ul><li>Kép: A buborékrendezés egy lépését mutatja, ahol a bal oldalon a kezdeti lista áll, a jobb oldalon pedig az aktuális állapot a rendezés során.</li></ul>
+        <pre><code>
+            Kezdeti lista: [5, 3, 8, 4, 2]
+
+            1. lépés:
+            [3, 5, 8, 4, 2] -> 5 és 3 cseréje
+
+            2. lépés:
+            [3, 5, 4, 8, 2] -> 8 és 4 cseréje
+
+            3. lépés:
+            [3, 5, 4, 2, 8] -> 8 és 2 cseréje
+
+            4. lépés:
+            [3, 4, 5, 2, 8] -> 5 és 4 cseréje
+
+            5. lépés:
+            [3, 4, 2, 5, 8] -> 5 és 2 cseréje
+
+            6. lépés:
+            [2, 3, 4, 5, 8] -> 3 és 2 cseréje (rendezett)
+        </code></pre>
+    </section>
+
+    <section id="code" class="container">
+        <h2>Beszúrásos Rendezés Szemléltetése</h2>
+        <ul><li>Kép: A beszúrásos rendezés egy lépését mutatja, ahol a bal oldalon a kezdeti lista áll, a jobb oldalon pedig a rendezett rész és az aktuális elem.</li></ul>
+        <pre><code>
+            Kezdeti lista: [5, 3, 8, 4, 2]
+
+            1. lépés:
+            Rendezett: [5]
+            Aktuális: 3
+            [3, 5, 8, 4, 2] -> 3 beillesztése
+
+            2. lépés:
+            Rendezett: [3, 5]
+            Aktuális: 8
+            [3, 5, 8, 4, 2] -> 8 beillesztése
+
+            3. lépés:
+            Rendezett: [3, 5, 8]
+            Aktuális: 4
+            [3, 4, 5, 8, 2] -> 4 beillesztése
+
+            4. lépés:
+            Rendezett: [2, 3, 4, 5, 8]
+            Aktuális: 2
+            [2, 3, 4, 5, 8] -> 2 beillesztése (rendezett)
+        </code></pre>
+    </section>
+
+    <section id="code" class="container">
+        <h2> A kód bemutatása: 1. feladat</h2>
+        <ul><li>Python program, amely véletlen számokat és szövegeket generál, majd rendezési algoritmusokat alkalmaz.</li></ul>
+        <pre><code>
+import random
+import string
+def veletlen_szamok():
+    also_hatar = int(input("Add meg a legkisebb szamot: "))
+    felso_hatar = int(input("Add meg a legnagyobb szamot: "))
+    darab = int(input("Hany darab szamot szeretnel generaltatni? "))
+    
+    szamok = [str(random.randint(also_hatar, felso_hatar)) for _ in range(darab)]
+    
+    
+    with open("ki.txt", "a") as f:
+        f.write(";".join(szamok) + "\n")  
+    
+    print(f"A generált számok: {';'.join(szamok)}")
+def veletlen_szovegek():
+    darab = int(input("Hany darab szoveget szeretnel generaltatni? "))
+    
+    szovegek = []
+    for _ in range(darab):
+        hossz = random.randint(1, 20)
+        szoveg = ''.join(random.choice(string.ascii_letters) for _ in range(hossz))
+        szovegek.append(szoveg)
+    
+   
+    with open("ki.txt", "a") as f:
+        f.write(";".join(szovegek) + "\n")  
+    
+    print(f"A generált szövegek: {';'.join(szovegek)}")
+def ellenoriz_szamokat():
+    also_hatar = int(input("Add meg a legkisebb szamot: "))
+    felso_hatar = int(input("Add meg a legnagyobb szamot: "))
+    
+    try:
+        with open("ki.txt", "r") as f:
+            tartalom = f.readlines()  
+            for sor in tartalom:
+                szamok = list(map(int, sor.strip().split(";")))  
+                megfelel = all(also_hatar <= szam <= felso_hatar for szam in szamok)
+                
+                if megfelel:
+                    print(f"A fájlban lévő számok ebben a sorban megfelelnek: {szamok}")
+                else:
+                    print(f"A fájlban lévő számok nem felelnek meg ebben a sorban: {szamok}")
+    
+    except FileNotFoundError:
+        print("A ki.txt fájl nem található.")
+    except ValueError:
+        print("A fájl nem csak számokat tartalmaz.")
+def ellenoriz_szovegeket():
+    try:
+        with open("ki.txt", "r") as f:
+            tartalom = f.readlines()  
+            for sor in tartalom:
+                szovegek = sor.strip().split(";")
+                megfelel = all(1 <= len(szoveg) <= 20 and szoveg.isalpha() for szoveg in szovegek)
+                
+                if megfelel:
+                    print(f"A fájlban lévő szövegek ebben a sorban megfelelnek: {szovegek}")
+                else:
+                    print(f"A fájlban lévő szövegek nem felelnek meg ebben a sorban: {szovegek}")
+    
+    except FileNotFoundError:
+        print("A ki.txt fájl nem található.")
+def main():
+    print("Valassz a lehetosegek kozul:")
+    print("1. Veletlen szamok generalasa")
+    print("2. Veletlen szovegek generalasa")
+    print("3. Szamok ellenorzese fajlbol")
+    print("4. Szovegek ellenorzese fajlbol")
+    
+    valasztas = input("Add meg a valasztott lehetoseg szamat (1-4): ")
+    
+    if valasztas == '1':
+        veletlen_szamok()
+    elif valasztas == '2':
+        veletlen_szovegek()
+    elif valasztas == '3':
+        ellenoriz_szamokat()
+    elif valasztas == '4':
+        ellenoriz_szovegeket()
+    else:
+        print("Ervenytelen valasztas, kerlek 1 es 4 kozott adj meg egy szamot.")
+if __name__ == "__main__":
+    main()
+        </code></pre>
+    </section>
+    <section id="code" class="container">
+        <h2>Python Kód 2.feladat - Rendezés és Beillesztés </h2>
+            <pre><code>
+        def beolvas_fajlbol(fajlnev):
+            try:
+                with open(fajlnev, 'r') as f:
+                    adatok = f.read().splitlines()
+                return adatok
+            except:
+                print("Hiba: A fájl nem található.")
+                return None
+        
+        def eldonto(adatok):
+            if all(x.isdigit() for x in adatok): 
+                return [int(x) for x in adatok]
+            elif all(isinstance(x, str) for x in adatok):
+                return adatok
+            else:
+                print("Hiba: Vegyes típusú adatok!")
+                return None
+        
+        def csere_rendezes(lista, novekvo=True):
+            for i in range(len(lista)):
+                for j in range(i + 1, len(lista)):
+                    if (novekvo and lista[i] > lista[j]) or (not novekvo and lista[i] < lista[j]):
+                        lista[i], lista[j] = lista[j], lista[i]
+            return lista
+        
+        def beszurasos_rendezes(lista, novekvo=True):
+            for i in range(1, len(lista)):
+                kulcs = lista[i]
+                j = i - 1
+                while j >= 0 and ((novekvo and lista[j] > kulcs) or (not novekvo and lista[j] < kulcs)):
+                    lista[j + 1] = lista[j]
+                    j -= 1
+                lista[j + 1] = kulcs
+            return lista
+        
+        def beszuras(lista, uj_elem, novekvo=True):
+            lista.append(uj_elem)
+            return beszurasos_rendezes(lista, novekvo)
+        
+        def main():
+            fajlnev = "ki.txt"
+            adatok = beolvas_fajlbol(fajlnev)
+            
+            if adatok is None:
+                return
+            adatok = eldonto(adatok)
+            if adatok is None:
+                return
+        
+            print("Válassz rendezési sorrendet:")
+            print("1. Növekvő")
+            print("2. Csökkenő")
+            
+            sorrend_valasztas = input("Sorrend választás (1 vagy 2): ")
+            novekvo = True if sorrend_valasztas == "1" else False
+        
+            print("Válassz rendezési algoritmust:")
+            print("1. Csere rendezés")
+            print("2. Beszúrásos rendezés")
+            
+            algoritmus_valasztas = input("Algoritmus választás (1 vagy 2): ")
+            
+            if algoritmus_valasztas == "1":
+                rendezett_adatok = csere_rendezes(adatok, novekvo)
+            else:
+                rendezett_adatok = beszurasos_rendezes(adatok, novekvo)
+            
+            print("Rendezett lista:", rendezett_adatok)
+        
+            uj_elem = input("Adj meg egy új elemet: ")
+            if uj_elem.isdigit():
+                uj_elem = int(uj_elem)
+            
+            uj_lista = beszuras(rendezett_adatok, uj_elem, novekvo)
+            print("Új lista:", uj_lista)
+        
+        if __name__ == "__main__":
+            main()
+            </code></pre>
+        </section>
+        
+    
+    <section id="sources" class="container">
+        <h2>Források</h2>
+        <ul>
+            <li><a href="https://www.geeksforgeeks.org/bubble-sort/">GeeksforGeeks: Buborékrendezés</a></li>
+            <li><a href="https://www.programiz.com/dsa/insertion-sort">Programiz: Beszúrásos Rendezés</a></li>
+            <li><a href="https://www.tutorialspoint.com/python/python_sorting_algorithms.htm">TutorialsPoint: Python Rendezési Algoritmusok</a></li>
+            <li><a href="https://www.w3schools.com/python/python_random.asp">W3Schools: Python Random Module</a></li>
+        </ul>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p> 2024 Rendezési Algoritmusok Weboldal</p> <br>
+            <p>Készítette: Batiz Béla Benedek, Tóth Sándor Benedek, Jakab Tamás</p>
+        </div>
+    </footer>
+</body>
+</html>
